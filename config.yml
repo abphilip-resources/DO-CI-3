@@ -1,0 +1,27 @@
+# https://app.circleci.com/pipelines/github/abphilip-resources/DO-CI-2/3/workflows/c57cf135-5c12-46a7-8119-d6a7fa1b8cb9
+
+version: 2.1                                      # CircleCI version
+
+jobs:
+  Build:                                          # Job name
+    working_directory: ~/circleci-python          # Working directory
+    docker:
+      - image: "circleci/python:3.6.4"            # Docker image to be used
+    steps:                                        # Steps to be executed
+      - checkout                                  # Checkout the repository
+      - run: python3 main.py                      # Execute the main.py file
+  Test:                                           # Job name
+    working_directory: ~/circleci-python          # Working directory
+    docker:
+      - image: "circleci/python:3.6.4"            # Docker image to be used
+    steps:                                        # Steps to be executed
+      - checkout                                  # Checkout the repository
+      - run: python3 test.py                      # Execute the test.py file
+
+workflows:                                        # Workflows to be executed
+  Learn 0:                                        # Workflow name
+    jobs:
+      - Build:                                    # Job name
+          requires: []                            # Dependencies
+      - Test:                                     # Job name
+          requires: [Build]                       # Dependencies          
